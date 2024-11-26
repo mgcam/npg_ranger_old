@@ -4,6 +4,10 @@
 [![CI checks](https://github.com/wtsi-npg/npg_ranger/actions/workflows/ci.yml/badge.svg)](https://github.com/wtsi-npg/npg_ranger/actions/workflows/ci.yml)
 [![NPM dependencies](https://david-dm.org/wtsi-npg/npg_ranger.svg)](https://david-dm.org/wtsi-npg/npg_ranger)
 
+## Update
+
+Active development is indefinitely suspended.
+
 ## Introduction
 
 This project is a contribution towards development of the streaming API under the
