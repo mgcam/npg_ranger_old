@@ -16,8 +16,8 @@ ENV NODE_VERSION=16.14.0 \
     IRODS_RUNTIME_VERSION=4.2.7 \
     NPG_RANGER_VERSION=2.0.0 \
     CONDA_GENERIC_CHANNEL='https://dnap.cog.sanger.ac.uk/npg/conda/prod/generic/linux-64/' \
-    MINICONDA_VERSION='4.10.3' \
-    MINICONDA_HOME='/miniconda' \
+    MINIFORGE_VERSION='24.9.0-0' \
+    MINIFORGE_HOME='/miniforge' \
     APT_DEPENDENCIES="wget git xz-utils" \
     PYTHONDONTWRITEBYTECODE=true
 
@@ -44,10 +44,10 @@ RUN apt-get update -qq \
 # \
 # Install conda
   && mkdir -p /software \
-  && wget -q "https://repo.anaconda.com/miniconda/Miniconda3-py39_${MINICONDA_VERSION}-Linux-x86_64.sh" -O "miniconda-${MINICONDA_VERSION}.sh" \
-  && /bin/sh "miniconda-${MINICONDA_VERSION}.sh" -b -p "${MINICONDA_HOME}" \
-  && export PATH="${MINICONDA_HOME}/bin:$PATH" \
-  && rm "miniconda-${MINICONDA_VERSION}.sh" \
+  && wget -q "https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_VERSION}/Miniforge3-${MINIFORGE_VERSION}-Linux-x86_64.sh" -O "miniforge-${MINIFORGE_VERSION}.sh" \
+  && /bin/sh "miniforge-${MINIFORGE_VERSION}.sh" -b -p "${MINIFORGE_HOME}" \
+  && export PATH="${MINIFORGE_HOME}/bin:$PATH" \
+  && rm "miniforge-${MINIFORGE_VERSION}.sh" \
 \
 # Install iRODS icommands
   && conda create -p "/software/irods/${IRODS_ICOMMANDS_VERSION}"  \
@@ -75,7 +75,7 @@ RUN apt-get update -qq \
 \
 # Clean up conda files
   && conda clean -afy \
-  && rm -rf ${MINICONDA_HOME} \
+  && rm -rf ${MINIFORGE_HOME} \
 \
 # Clean npm cache
   && npm prune --production \

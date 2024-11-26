@@ -4,10 +4,10 @@ on: [push, pull_request]
 
 env:
   MONGODB_VERSION: 3.6.14
-  MINICONDA_VERSION: "4.10.3"
+  MINIFORGE_VERSION: "24.9.0-0"
   CONDA_GENERIC_CHANNEL: "https://dnap.cog.sanger.ac.uk/npg/conda/prod/generic/linux-64/"
   CONDA_GENERIC_DEVEL_CHANNEL: "https://dnap.cog.sanger.ac.uk/npg/conda/devel/generic/linux-64/"
-  MINICONDA_HOME: "/tmp/miniconda"
+  MINIFORGE_HOME: "/tmp/miniforge"
   SOFTWARE_HOME: "/tmp/software"
   FREEBAYES_VERSION: "1.2.0"
   BIOBAMBAM_VERSION: "2.0.79"
@@ -47,9 +47,9 @@ jobs:
         cache-name: cache-conda-modules
       with:
         path: /tmp/software
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{env.MONGODB_VERSION}}-${{env.MINICONDA_VERSION}}-${{env.FREEBAYES_VERSION}}-${{env.BIOBAMBAM_VERSION}}-${{env.SAMTOOLS1_VERSION}}
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{env.MONGODB_VERSION}}-${{env.MINIFORGE_VERSION}}-${{env.FREEBAYES_VERSION}}-${{env.BIOBAMBAM_VERSION}}-${{env.SAMTOOLS1_VERSION}}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{env.MONGODB_VERSION}}-${{env.MINICONDA_VERSION}}-${{env.FREEBAYES_VERSION}}-${{env.BIOBAMBAM_VERSION}}-${{env.SAMTOOLS1_VERSION}}
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{env.MONGODB_VERSION}}-${{env.MINIFORGE_VERSION}}-${{env.FREEBAYES_VERSION}}-${{env.BIOBAMBAM_VERSION}}-${{env.SAMTOOLS1_VERSION}}
 
     - name: Setup dependencies
       run: |
@@ -64,4 +64,4 @@ jobs:
         samtools --version
 
     - name: Run tests
-      run: grunt -v
+      run: export PATH="/tmp/usr/bin:${PATH}" && grunt -v
