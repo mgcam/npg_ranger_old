@@ -4,14 +4,14 @@ set -e -x
 
 pushd /tmp
 # mongo
-wget "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB_VERSION}.tgz"
+wget -q "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB_VERSION}.tgz"
 tar xfz "mongodb-linux-x86_64-${MONGODB_VERSION}.tgz"
 
 # conda
 mkdir -p "${SOFTWARE_HOME}"
-wget -q "https://repo.anaconda.com/miniconda/Miniconda3-py39_${MINICONDA_VERSION}-Linux-x86_64.sh" -O "miniconda-${MINICONDA_VERSION}.sh"
-/bin/sh "miniconda-${MINICONDA_VERSION}.sh" -b -p "${MINICONDA_HOME}"
-export PATH="${MINICONDA_HOME}/bin:$PATH"
+wget -q "https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_VERSION}/Miniforge3-${MINIFORGE_VERSION}-Linux-x86_64.sh" -O "miniforge-${MINIFORGE_VERSION}.sh"
+/bin/sh "miniforge-${MINIFORGE_VERSION}.sh" -b -p "${MINIFORGE_HOME}"
+export PATH="${MINIFORGE_HOME}/bin:$PATH"
 conda config --set auto_update_conda False
 conda config --set always_yes True
 conda config --set show_channel_urls True
@@ -40,7 +40,7 @@ mkdir -p /tmp/usr/bin
 ln -s "/tmp/mongodb-linux-x86_64-${MONGODB_VERSION}/bin/mongo" /tmp/usr/bin/mongo
 ln -s "/tmp/mongodb-linux-x86_64-${MONGODB_VERSION}/bin/mongod" /tmp/usr/bin/mongod
 ln -s "/tmp/mongodb-linux-x86_64-${MONGODB_VERSION}/bin/mongoimport" /tmp/usr/bin/mongoimport
-ln -s "/tmp/miniconda/bin/conda" /tmp/usr/bin/conda
+ln -s "/tmp/miniforge/bin/conda" /tmp/usr/bin/conda
 ln -s "${SOFTWARE_HOME}"/samtools/"${SAMTOOLS1_VERSION}"/bin/samtools /tmp/usr/bin/samtools
 ln -s "${SOFTWARE_HOME}"/biobambam2/"${BIOBAMBAM_VERSION}"/bin/bamstreamingmarkduplicates /tmp/usr/bin/bamstreamingmarkduplicates
 ln -s "${SOFTWARE_HOME}"/biobambam2/"${BIOBAMBAM_VERSION}"/bin/bamseqchksum /tmp/usr/bin/bamseqchksum
